@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HN Gist Drawer Settings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      width: 340px;
+      background-color: #f6f6ef;
+      color: #1f1f1f;
+      font-family: Verdana, Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 9pt;
+    }
+
+    .popup-header {
+      background-color: #ff6600;
+      color: #000000;
+      padding: 10px 12px;
+      font-weight: bold;
+      font-size: 10pt;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #d95600;
+    }
+
+    .popup-header__badge {
+      font-size: 7.5pt;
+      font-weight: normal;
+      background-color: rgba(255, 255, 255, 0.35);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .popup-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 8.5pt;
+      color: #333333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    label a {
+      font-weight: normal;
+      font-size: 7.5pt;
+      color: #a64200;
+      text-decoration: underline;
+    }
+
+    input[type="password"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 6px 8px;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 8.5pt;
+      border: 1px solid #bebeb2;
+      border-radius: 3px;
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #ff6600;
+    }
+
+    .row-inline {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid #bebeb2;
+      background-color: #eaeae0;
+      color: #1f1f1f;
+      padding: 6px 10px;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 8pt;
+      font-weight: bold;
+      border-radius: 3px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover:not(:disabled) {
+      background-color: #dfdfd2;
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn--primary {
+      background-color: #ff6600;
+      border-color: #d45500;
+      color: #000000;
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 9pt;
+    }
+
+    .btn--primary:hover:not(:disabled) {
+      background-color: #ff771a;
+    }
+
+    .status-msg {
+      font-size: 8pt;
+      padding: 6px 8px;
+      border-radius: 3px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    .status-msg--success {
+      display: block;
+      background-color: #dff0d8;
+      border: 1px solid #b2dba1;
+      color: #2b542c;
+    }
+
+    .status-msg--error {
+      display: block;
+      background-color: #f2dede;
+      border: 1px solid #dca7a7;
+      color: #843534;
+    }
+
+    .status-msg--info {
+      display: block;
+      background-color: #eaeae0;
+      border: 1px solid #d2d2c4;
+      color: #444444;
+    }
+
+    .cache-footer {
+      border-top: 1px solid #dcdcd0;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #666666;
+    }
+  </style>
+</head>
+<body>
+  <header class="popup-header">
+    <span>⚡ HN Gist Drawer</span>
+    <span class="popup-header__badge" id="cacheCountBadge">0 / 25 cached</span>
+  </header>
+
+  <main class="popup-body">
+    <div class="field-group">
+      <label for="apiKeyInput">
+        <span>Google AI Studio API Key</span>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Get API Key ↗</a>
+      </label>
+      <div class="row-inline">
+        <input
+          type="password"
+          id="apiKeyInput"
+          placeholder="AIzaSy..."
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="button" class="btn" id="toggleKeyBtn" title="Show/Hide API key">Show</button>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="modelSelect">
+        <span>Gemini Model</span>
+      </label>
+      <div class="row-inline">
+        <select id="modelSelect">
+          <option value="gemini-flash-latest">gemini-flash-latest (Default)</option>
+        </select>
+        <button type="button" class="btn" id="fetchModelsBtn">Fetch Models</button>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn--primary" id="saveBtn">Save Settings</button>
+
+    <div id="statusMessage" class="status-msg" role="status"></div>
+
+    <div class="cache-footer">
+      <span id="sessionInfoText">Session-only LRU cache (25 max)</span>
+      <button type="button" class="btn" id="clearCacheBtn">Clear Cache</button>
+    </div>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>

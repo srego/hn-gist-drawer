@@ -1,0 +1,425 @@
+/* styles.css - Hacker News Aesthetics for HN Gist Drawer */
+
+/* Smooth page split when the right-hand drawer is open */
+body {
+  transition: margin-right 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.hn-gist-drawer-open {
+  margin-right: 38vw !important;
+}
+
+/* Inline [⚡ Gist] button in HN subtext row */
+.hn-gist-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 1px 4px;
+  margin: 0;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 7pt;
+  color: #828282;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  vertical-align: baseline;
+}
+
+.hn-gist-btn:hover {
+  color: #000000;
+  background-color: rgba(255, 102, 0, 0.12);
+}
+
+.hn-gist-btn--loading {
+  color: #b35900;
+  background-color: rgba(255, 153, 0, 0.12);
+}
+
+.hn-gist-btn--ready {
+  color: #1f6b2e;
+  background-color: rgba(46, 160, 67, 0.14);
+  font-weight: 600;
+}
+
+.hn-gist-btn--ready:hover {
+  color: #134a1e;
+  background-color: rgba(46, 160, 67, 0.24);
+}
+
+/* Right-Hand Split Drawer */
+.hn-gist-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 38vw;
+  min-width: 380px;
+  max-width: 600px;
+  height: 100vh;
+  z-index: 9999;
+  background-color: #f6f6ef;
+  border-left: 2px solid #ff6600;
+  box-shadow: -4px 0 18px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  font-family: Verdana, Geneva, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #1f1f1f;
+  box-sizing: border-box;
+  transform: translateX(102%);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hn-gist-drawer *,
+.hn-gist-drawer *::before,
+.hn-gist-drawer *::after {
+  box-sizing: border-box;
+}
+
+.hn-gist-drawer--open {
+  transform: translateX(0);
+}
+
+/* Drawer Header */
+.hn-gist-drawer__header {
+  background-color: #ff6600;
+  color: #000000;
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid #e05a00;
+  flex-shrink: 0;
+}
+
+.hn-gist-drawer__title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.hn-gist-drawer__title {
+  font-size: 10pt;
+  font-weight: bold;
+  color: #000000 !important;
+  text-decoration: none;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.hn-gist-drawer__title:hover {
+  text-decoration: underline;
+}
+
+.hn-gist-drawer__meta {
+  font-size: 8pt;
+  color: #222222;
+}
+
+.hn-gist-drawer__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hn-gist-drawer__action-btn {
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #000000;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  font-weight: bold;
+  padding: 3px 7px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hn-gist-drawer__action-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.hn-gist-drawer__action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Drawer Scrollable Body */
+.hn-gist-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  font-size: 9.5pt;
+  line-height: 1.55;
+}
+
+/* Markdown Styling inside Drawer */
+.hn-gist-markdown {
+  color: #1f1f1f;
+  word-break: break-word;
+}
+
+.hn-gist-heading {
+  font-size: 10pt;
+  font-weight: bold;
+  color: #000000;
+  margin: 14px 0 6px 0;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #e2e2d8;
+}
+
+.hn-gist-heading:first-child {
+  margin-top: 0;
+}
+
+.hn-gist-paragraph {
+  margin: 0 0 10px 0;
+}
+
+.hn-gist-list {
+  margin: 0 0 10px 0;
+  padding-left: 18px;
+}
+
+.hn-gist-list li {
+  margin-bottom: 6px;
+}
+
+.hn-gist-list-item--nested {
+  margin-left: 14px;
+  list-style-type: circle;
+}
+
+.hn-gist-inline-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 8.5pt;
+  background-color: #eaeae0;
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: #222222;
+}
+
+.hn-gist-code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 8.5pt;
+  background-color: #eaeae0;
+  padding: 8px 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0 0 10px 0;
+}
+
+.hn-gist-quote {
+  margin: 0 0 10px 0;
+  padding: 4px 10px;
+  border-left: 3px solid #ff6600;
+  color: #4a4a4a;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.hn-gist-link {
+  color: #a64200 !important;
+  text-decoration: underline;
+}
+
+.hn-gist-link:hover {
+  color: #ff6600 !important;
+}
+
+.hn-gist-user {
+  font-weight: 600;
+  color: #555555;
+  background-color: #eaeae2;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 8.5pt;
+}
+
+/* Loading Skeleton */
+.hn-gist-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.hn-gist-skeleton__status {
+  font-size: 8.5pt;
+  color: #666666;
+  margin-bottom: 4px;
+  font-style: italic;
+}
+
+.hn-gist-skeleton__line {
+  height: 11px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #e6e6dc 25%, #efefea 50%, #e6e6dc 75%);
+  background-size: 200% 100%;
+  animation: hnGistPulse 1.4s ease-in-out infinite;
+  width: 100%;
+}
+
+.hn-gist-skeleton__line--heading {
+  height: 14px;
+  width: 48%;
+  margin-top: 8px;
+}
+
+.hn-gist-skeleton__line--medium {
+  width: 78%;
+}
+
+.hn-gist-skeleton__line--short {
+  width: 60%;
+}
+
+@keyframes hnGistPulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Error Box */
+.hn-gist-error {
+  background-color: #fff3cd;
+  border: 1px solid #ffecb5;
+  border-left: 4px solid #d9534f;
+  padding: 12px;
+  border-radius: 4px;
+  color: #4a2727;
+}
+
+.hn-gist-error__title {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.hn-gist-error__message {
+  font-size: 8.5pt;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.hn-gist-error__hint {
+  font-size: 8pt;
+  color: #665050;
+}
+
+.hn-gist-inline-error {
+  color: #b52b27;
+  font-weight: 600;
+}
+
+/* Follow-Up Q&A Section */
+.hn-gist-drawer__chat-section {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 2px solid #e0e0d4;
+}
+
+.hn-gist-drawer__section-label {
+  font-size: 8pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #828282;
+  margin-bottom: 10px;
+}
+
+.hn-gist-drawer__chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hn-gist-chat-msg {
+  padding: 9px 11px;
+  border-radius: 5px;
+  font-size: 9pt;
+}
+
+.hn-gist-chat-msg__role {
+  font-size: 7.5pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: #666666;
+}
+
+.hn-gist-chat-msg--user {
+  background-color: #ecece2;
+  border-left: 3px solid #828282;
+}
+
+.hn-gist-chat-msg--model {
+  background-color: #ffffff;
+  border: 1px solid #e4e4dc;
+  border-left: 3px solid #ff6600;
+}
+
+.hn-gist-chat-msg--thinking {
+  font-style: italic;
+  color: #666666;
+}
+
+/* Sticky Drawer Footer */
+.hn-gist-drawer__footer {
+  border-top: 1px solid #dcdcd0;
+  background-color: #eeeee4;
+  padding: 10px 14px;
+  flex-shrink: 0;
+}
+
+.hn-gist-drawer__form {
+  display: flex;
+  gap: 8px;
+}
+
+.hn-gist-drawer__input {
+  flex: 1;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
+  padding: 7px 9px;
+  border: 1px solid #bebeb2;
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.hn-gist-drawer__input:focus {
+  outline: none;
+  border-color: #ff6600;
+}
+
+.hn-gist-drawer__input:disabled {
+  background-color: #f0f0e8;
+  color: #888888;
+}
+
+.hn-gist-drawer__send-btn {
+  appearance: none;
+  background-color: #ff6600;
+  color: #000000;
+  border: 1px solid #d45500;
+  border-radius: 3px;
+  padding: 7px 12px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8.5pt;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hn-gist-drawer__send-btn:hover:not(:disabled) {
+  background-color: #ff771a;
+}
+
+.hn-gist-drawer__send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
