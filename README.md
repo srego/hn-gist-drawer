@@ -66,5 +66,12 @@ hn-gist-drawer/
 ├── popup.js            # API key storage and dynamic Gemini model fetching
 ├── icons/              # Custom extension icons (16px, 32px, 48px, 128px)
 ├── .gitignore          # Git ignore rules
+├── LICENSE             # MIT License
 └── README.md           # Documentation
 ```
+
+---
+
+## 📄 License
+
+Released under the [MIT License](LICENSE). Provided "as is", without warranty of any kind.
